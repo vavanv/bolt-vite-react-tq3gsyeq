@@ -34,7 +34,7 @@ function App() {
   ];
 
   const drawer = (
-    <div>
+    <Box>
       <Toolbar />
       <List>
         {menuItems.map((item) => (
@@ -46,20 +46,14 @@ function App() {
           </ListItem>
         ))}
       </List>
-    </div>
+    </Box>
   );
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#f5f5f5' }}>
       <CssBaseline />
       
-      <AppBar
-        position="fixed"
-        sx={{
-          width: '100%',
-          zIndex: (theme) => theme.zIndex.drawer + 1
-        }}
-      >
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -76,61 +70,54 @@ function App() {
         </Toolbar>
       </AppBar>
 
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          '& .MuiDrawer-paper': { 
+            boxSizing: 'border-box', 
+            width: drawerWidth,
+            zIndex: (theme) => theme.zIndex.appBar - 1,
+          },
+        }}
       >
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            '& .MuiDrawer-paper': { 
-              boxSizing: 'border-box', 
-              width: drawerWidth,
-              backgroundColor: 'white',
-              borderRight: '1px solid rgba(0, 0, 0, 0.12)'
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </Box>
+        {drawer}
+      </Drawer>
 
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
-          width: '100%',
-          mb: '56px',
+          mt: 8,
+          mb: 7,
         }}
       >
-        <Toolbar />
         <Typography paragraph>
           Start prompting (or editing) to see magic happen :)
         </Typography>
       </Box>
 
-      <Paper
-        sx={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
+      <Paper 
+        sx={{ 
+          position: 'fixed', 
+          bottom: 0, 
+          left: 0, 
           right: 0,
-          zIndex: 1100,
-        }}
+          zIndex: (theme) => theme.zIndex.appBar
+        }} 
         elevation={3}
       >
         <BottomNavigation
+          showLabels
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
           }}
-          sx={{ width: '100%' }}
         >
           <BottomNavigationAction label="Home" icon={<Home size={24} />} />
           <BottomNavigationAction label="Login" icon={<LogIn size={24} />} />

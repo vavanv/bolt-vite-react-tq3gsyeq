@@ -1,3 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Global styles can go here */
+body {
+  margin: 0;
+  padding: 0;
+}
