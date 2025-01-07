@@ -10,9 +10,12 @@ import {
   Avatar,
   Stack
 } from '@mui/material';
-import { mockSpeakers } from '../store/mockData';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 export default function SpeakerList() {
+  const speakers = useSelector((state: RootState) => state.speakers.speakers);
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
@@ -23,7 +26,7 @@ export default function SpeakerList() {
       </Box>
       
       <Grid container spacing={3}>
-        {mockSpeakers.map((speaker) => (
+        {speakers.map((speaker) => (
           <Grid item xs={12} md={6} key={speaker.id}>
             <Card>
               <CardContent>

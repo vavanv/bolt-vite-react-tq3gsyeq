@@ -7,10 +7,11 @@ import {
   Box,
 } from '@mui/material';
 import { Users, Calendar, MessageSquare } from 'lucide-react';
-import { useAuthStore } from '../store/authStore';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 export default function Dashboard() {
-  const user = useAuthStore((state) => state.user);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const stats = [
     {

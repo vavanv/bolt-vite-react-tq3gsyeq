@@ -10,9 +10,13 @@ import {
   Stack
 } from '@mui/material';
 import { format } from 'date-fns';
-import { mockEvents, mockSpeakers } from '../store/mockData';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 export default function EventList() {
+  const events = useSelector((state: RootState) => state.events.events);
+  const speakers = useSelector((state: RootState) => state.speakers.speakers);
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
@@ -23,8 +27,8 @@ export default function EventList() {
       </Box>
       
       <Grid container spacing={3}>
-        {mockEvents.map((event) => {
-          const speaker = mockSpeakers.find(s => s.id === event.speaker_id);
+        {events.map((event) => {
+          const speaker = speakers.find(s => s.id === event.speaker_id);
           return (
             <Grid item xs={12} key={event.id}>
               <Card>

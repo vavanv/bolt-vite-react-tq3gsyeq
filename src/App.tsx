@@ -8,7 +8,8 @@ import Dashboard from './pages/Dashboard';
 import Auth from './pages/Auth';
 import EventList from './pages/EventList';
 import SpeakerList from './pages/SpeakerList';
-import { useAuthStore } from './store/authStore';
+import { useSelector } from 'react-redux';
+import { RootState } from './store/store';
 
 const theme = createTheme({
   palette: {
@@ -22,7 +23,7 @@ const theme = createTheme({
 });
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
   return isAuthenticated ? <>{children}</> : <Navigate to="/auth" />;
 }
 

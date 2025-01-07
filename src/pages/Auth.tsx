@@ -10,7 +10,8 @@ import {
   Tabs,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/slices/authSlice';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -39,17 +40,16 @@ export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const setUser = useAuthStore((state) => state.setUser);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual authentication
-    setUser({
+    dispatch(setUser({
       id: '1',
       email,
       role: 'admin',
       name: 'Admin User',
-    });
+    }));
     navigate('/');
   };
 

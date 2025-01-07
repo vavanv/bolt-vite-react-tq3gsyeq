@@ -23,22 +23,25 @@ import {
   Bell,
   LogOut,
 } from 'lucide-react';
-import { useAuthStore } from '../store/authStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { setUser } from '../store/slices/authSlice';
 
 const drawerWidth = 240;
 
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [notifications] = useState(2); // Example notification count
+  const [notifications] = useState(2);
   const navigate = useNavigate();
-  const { user, setUser } = useAuthStore();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const handleLogout = () => {
-    setUser(null);
+    dispatch(setUser(null));
     navigate('/auth');
   };
 
